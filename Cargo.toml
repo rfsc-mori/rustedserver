@@ -5,4 +5,4 @@ authors = ["Rafael Fillipe Silva <silva.rafaelfillipe@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-tokio = { version = "0.2", features = ["blocking", "macros", "rt-core", "rt-threaded"] }
+tokio = { version = "0.2", features = ["blocking", "fs", "macros", "rt-core", "rt-threaded"] }
