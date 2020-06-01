@@ -36,26 +36,20 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct Settings {
-    combat: Combat,
-    connection: Connection,
-    death: Death,
-    housing: Housing,
-    item_usage: ItemUsage,
-    map: Map,
-    market: Market,
-    sql: SQL,
-    misc: Misc,
-    server_save: ServerSave,
-    rates: Rates,
-    monsters: Monsters,
-    stamina: Stamina,
-    scripts: Scripts,
-    startup: Startup,
-    server_information: ServerInformation,
-}
-
-impl Settings {
-    pub fn new() -> Self {
-        Self::default()
-    }
+    pub combat: Combat,
+    pub connection: Connection,
+    pub death: Death,
+    pub housing: Housing,
+    pub item_usage: ItemUsage,
+    pub map: Map,
+    pub market: Market,
+    pub sql: SQL,
+    pub misc: Misc,
+    pub server_save: ServerSave,
+    pub rates: Rates,
+    pub monsters: Monsters,
+    pub stamina: Stamina,
+    pub scripts: Scripts,
+    pub startup: Startup,
+    pub server_information: ServerInformation,
 }

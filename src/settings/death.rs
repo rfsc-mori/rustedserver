@@ -2,5 +2,5 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct Death {
-    death_lose_percent: i64,
+    pub death_lose_percent: i64,
 }

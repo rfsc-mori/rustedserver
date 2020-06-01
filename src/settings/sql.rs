@@ -2,10 +2,10 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct SQL {
-    mysql_host: String,
-    mysql_user: String,
-    mysql_pass: String,
-    mysql_db: String,
-    mysql_port: i64,
-    mysql_sock: String,
+    pub mysql_host: String,
+    pub mysql_user: String,
+    pub mysql_pass: String,
+    pub mysql_db: String,
+    pub mysql_port: i64,
+    pub mysql_sock: String,
 }

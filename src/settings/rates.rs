@@ -2,9 +2,9 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct Rates {
-    rate_exp: i64,
-    rate_skill: i64,
-    rate_loot: i64,
-    rate_magic: i64,
-    rate_spawn: i64,
+    pub rate_exp: i64,
+    pub rate_skill: i64,
+    pub rate_loot: i64,
+    pub rate_magic: i64,
+    pub rate_spawn: i64,
 }

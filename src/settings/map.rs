@@ -2,6 +2,6 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct Map {
-    map_name: String,
-    map_author: String,
+    pub map_name: String,
+    pub map_author: String,
 }

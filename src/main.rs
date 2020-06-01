@@ -2,23 +2,24 @@ mod settings;
 mod settings_loader;
 mod server_state;
 
-use crate::settings::Settings;
-
 use anyhow::Result;
 use tokio::task;
+use tracing::Level;
+use tracing_subscriber::FmtSubscriber;
 
 fn print_info() {
     println!("Rustedserver (Temporary) - Version 0.1.0.");
 }
 
-async fn server_init(_: Settings) -> Result<()> {
-    Ok(())
-}
-
 #[tokio::main]
-async fn main() {
-    task::spawn_blocking(print_info).await
-        .expect("Failed to show server info.");
+async fn main() -> Result<()> {
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::DEBUG)
+        .finish();
+
+    tracing::subscriber::set_global_default(subscriber)?;
+
+    task::spawn_blocking(print_info).await?;
 
     let settings = task::spawn(async {
         settings_loader::load_config().await
@@ -26,8 +27,16 @@ async fn main() {
     });
 
     let server = task::spawn(async move {
-        server_init(settings.await?).await
+        match settings.await {
+            Ok(settings) => {
+                server_state::init_state(settings).await
+                    .expect("Failed to initialize server.")
+            },
+            Err(e) => panic!(e)
+        }
     });
 
-    server.await.expect("Failed to initialize server.");
+    server.await.unwrap();
+
+    Ok(())
 }
