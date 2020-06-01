@@ -25,14 +25,15 @@ async fn get_toml_config_file() -> Result<&'static str> {
     Ok(TOML_FILE)
 }
 
-async fn load_config_toml() -> Result<Settings> {
+async fn load_settings_toml() -> Result<Settings> {
     let toml_file = get_toml_config_file().await?;
-    let contents = fs::read(toml_file);
+    let contents = fs::read(toml_file).await?;
+    let settings = toml_loader::load(contents).await?;
 
-    toml_loader::load(contents.await?).await
+    Ok(settings)
 }
 
-pub async fn load_config() -> Result<Settings> {
+pub async fn load_settings() -> Result<Settings> {
     info!("Loading config.");
-    load_config_toml().await
+    Ok(load_settings_toml().await?)
 }
