@@ -1,7 +1,12 @@
+use super::types::*;
 use serde::{Serialize, Deserialize};
+use validator::Validate;
+use validator_derive::Validate;
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Validate)]
 pub struct Monsters {
-    pub despawn_range: i64,
-    pub despawn_radius: i64,
+    #[validate(custom = "validate_despawn_range")]
+    pub despawn_range: TDespawnRange,
+    #[validate(custom = "validate_despawn_range")]
+    pub despawn_radius: TDespawnRange,
 }

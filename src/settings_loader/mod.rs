@@ -8,6 +8,7 @@ use error::Result;
 use std::path::Path;
 use tokio::fs;
 use tracing::info;
+use validator::Validate;
 
 async fn get_toml_config_file() -> Result<&'static str> {
     const TOML_DIST: &str = "./config.toml.dist";
@@ -33,7 +34,17 @@ async fn load_settings_toml() -> Result<Settings> {
     Ok(settings)
 }
 
+async fn validate_settings(settings: &Settings) -> Result<()> {
+    match settings.validate() {
+        Ok(_) => Ok(()),
+        Err(e) => Err(SettingsLoaderError::ValidationError(e.to_string()))
+    }
+}
+
 pub async fn load_settings() -> Result<Settings> {
     info!("Loading config.");
-    Ok(load_settings_toml().await?)
+    let settings = load_settings_toml().await?;
+    validate_settings(&settings).await?;
+
+    Ok(settings)
 }

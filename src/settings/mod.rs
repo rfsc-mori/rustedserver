@@ -1,3 +1,4 @@
+mod types;
 mod combat;
 mod connection;
 mod death;
@@ -33,23 +34,41 @@ use startup::Startup;
 use server_information::ServerInformation;
 
 use serde::{Serialize, Deserialize};
+use validator::Validate;
+use validator_derive::Validate;
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Validate)]
 pub struct Settings {
+    #[validate]
     pub combat: Combat,
+    #[validate]
     pub connection: Connection,
+    #[validate]
     pub death: Death,
+    #[validate]
     pub housing: Housing,
+    #[validate]
     pub item_usage: ItemUsage,
+    #[validate]
     pub map: Map,
+    #[validate]
     pub market: Market,
+    #[validate]
     pub sql: SQL,
+    #[validate]
     pub misc: Misc,
+    #[validate]
     pub server_save: ServerSave,
+    #[validate]
     pub rates: Rates,
+    #[validate]
     pub monsters: Monsters,
+    #[validate]
     pub stamina: Stamina,
+    #[validate]
     pub scripts: Scripts,
+    #[validate]
     pub startup: Startup,
+    #[validate]
     pub server_information: ServerInformation,
 }

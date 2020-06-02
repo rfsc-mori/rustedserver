@@ -1,7 +1,6 @@
 mod error;
 
 use crate::settings::Settings;
-use error::ServerStateError;
 use error::Result;
 
 use tokio::sync::RwLock;

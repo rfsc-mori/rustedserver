@@ -1,6 +1,8 @@
 use serde::{Serialize, Deserialize};
+use validator::Validate;
+use validator_derive::Validate;
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Validate)]
 pub struct ServerInformation {
     pub owner_name: String,
     pub owner_email: String,
