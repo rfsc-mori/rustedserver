@@ -35,14 +35,12 @@ async fn load_settings_toml() -> Result<Settings> {
 }
 
 async fn validate_settings(settings: &Settings) -> Result<()> {
-    match settings.validate() {
-        Ok(_) => Ok(()),
-        Err(e) => Err(SettingsLoaderError::ValidationError(e.to_string()))
-    }
+    Ok(settings.validate()?)
 }
 
 pub async fn load_settings() -> Result<Settings> {
     info!("Loading config.");
+
     let settings = load_settings_toml().await?;
     validate_settings(&settings).await?;
 

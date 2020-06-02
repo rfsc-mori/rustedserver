@@ -25,20 +25,20 @@ fn print_server_information() {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    setup_tracing().expect("Failed to setup tracing.");
+    setup_tracing().expect("Failed to setup tracing");
 
     task::spawn_blocking(print_server_information).await?;
 
     let settings = task::spawn(async {
         settings_loader::load_settings().await
-            .expect("Failed to load configuration.")
+            .expect("Failed to load configuration")
     });
 
     let server_state = task::spawn(async move {
         match settings.await {
             Ok(settings) => {
                 server_state::init_state(settings).await
-                    .expect("Failed to initialize server state.")
+                    .expect("Failed to initialize server state")
             },
             Err(e) => panic!(e)
         }

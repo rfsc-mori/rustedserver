@@ -6,8 +6,8 @@ pub enum SettingsLoaderError {
     ConfigDistMissing(String),
     #[error("Failed to deserialize configuration from: {0}")]
     DeserializeError(String),
-    #[error("Failed to validate configuration: {0}")]
-    ValidationError(String),
+    #[error(transparent)]
+    ValidationError(#[from] validator::ValidationErrors),
     #[error(transparent)]
     IoError(#[from] std::io::Error),
 }
