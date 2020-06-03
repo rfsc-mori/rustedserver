@@ -4,9 +4,8 @@ mod settings;
 mod settings_loader;
 mod server_state;
 
-use anyhow::Result;
-use tokio::task;
-use tracing::Level;
+use anyhow::{Context, Result};
+use tracing::{Level, error};
 use tracing_subscriber::FmtSubscriber;
 
 fn setup_tracing() -> Result<()> {
@@ -21,30 +20,33 @@ fn setup_tracing() -> Result<()> {
 
 fn print_server_information() {
     println!("Rustedserver (Temporary) - Version 0.1.0.");
+    println!();
+}
+
+async fn run() -> Result<()> {
+    setup_tracing()
+        .expect("Failed to setup logging.");
+
+    print_server_information();
+
+    let settings = settings_loader::load_settings()
+        .await
+        .context("Failed to load server settings.")?;
+
+    let server = server_state::init_state(settings)
+        .await
+        .context("Failed to initialize server state.")?;
+
+    Ok(())
 }
 
 #[tokio::main]
-async fn main() -> Result<()> {
-    setup_tracing().expect("Failed to setup tracing");
+async fn main() {
+    if let Err(e) = run().await {
+        error!("Error: {}", e);
 
-    task::spawn_blocking(print_server_information).await?;
-
-    let settings = task::spawn(async {
-        settings_loader::load_settings().await
-            .expect("Failed to load configuration")
-    });
-
-    let server_state = task::spawn(async move {
-        match settings.await {
-            Ok(settings) => {
-                server_state::init_state(settings).await
-                    .expect("Failed to initialize server state")
-            },
-            Err(e) => panic!(e)
+        for source in e.chain().skip(1) {
+            error!("Caused by: {}", source);
         }
-    });
-
-    server_state.await?;
-
-    Ok(())
+    }
 }

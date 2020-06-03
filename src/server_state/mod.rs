@@ -1,8 +1,5 @@
-mod error;
-
 use crate::settings::Settings;
-use error::Result;
-
+use anyhow::{Context, Result};
 use tokio::sync::RwLock;
 use tokio::sync::RwLockReadGuard;
 use std::sync::Arc;
