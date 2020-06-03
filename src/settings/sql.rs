@@ -13,4 +13,6 @@ pub struct SQLOptions {
     pub mysql_db: TDatabaseName,
     #[validate(custom = "validate_network_port")]
     pub mysql_port: TNetworkPort,
+    #[validate(custom = "validate_sql_connections")]
+    pub mysql_conn: TSQLConnections,
 }

@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 
+mod database;
 mod settings;
 mod settings_loader;
 mod server_state;

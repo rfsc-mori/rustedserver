@@ -21,6 +21,7 @@ mod process_priority;
 mod rate;
 mod second_ticks;
 mod shutdown_notify_minutes;
+mod sql_connections;
 mod timeout_seconds;
 mod world_type;
 
@@ -47,6 +48,7 @@ pub use process_priority::*;
 pub use rate::*;
 pub use second_ticks::*;
 pub use shutdown_notify_minutes::*;
+pub use sql_connections::*;
 pub use timeout_seconds::*;
 pub use world_type::*;
 
