@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Monsters {
+pub struct MonsterOptions {
     #[validate(custom = "validate_despawn_range")]
     pub despawn_range: TDespawnRange,
     #[validate(custom = "validate_despawn_range")]

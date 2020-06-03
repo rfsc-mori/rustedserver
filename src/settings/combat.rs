@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Combat {
+pub struct CombatOptions {
     #[validate(custom = "validate_world_type")]
     pub world_type: TWorldType,
     pub hotkey_aimbot_enabled: bool,

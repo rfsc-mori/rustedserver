@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Startup {
+pub struct StartupOptions {
     #[validate(custom = "validate_process_priority")]
     pub default_priority: TProcessPriority,
     pub startup_database_optimization: bool,

@@ -3,7 +3,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct ServerInformation {
+pub struct ServerInformationOptions {
     pub owner_name: String,
     pub owner_email: String,
     pub url: String,

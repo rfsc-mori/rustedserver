@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Misc {
+pub struct MiscOptions {
     pub allow_change_outfit: bool,
     pub free_premium: bool,
     #[validate(custom = "validate_idle_timeout")]

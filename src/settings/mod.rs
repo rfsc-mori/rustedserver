@@ -1,37 +1,38 @@
 mod types;
-mod combat;
-mod connection;
-mod death;
-mod housing;
-mod item_usage;
-mod map;
-mod market;
-mod sql;
-mod misc;
-mod server_save;
-mod rates;
-mod monsters;
-mod stamina;
-mod scripts;
-mod startup;
-mod server_information;
 
-use combat::Combat;
-use connection::Connection;
-use death::Death;
-use housing::Housing;
-use item_usage::ItemUsage;
-use map::Map;
-use market::Market;
-use sql::SQL;
-use misc::Misc;
-use server_save::ServerSave;
-use rates::Rates;
-use monsters::Monsters;
-use stamina::Stamina;
-use scripts::Scripts;
-use startup::Startup;
-use server_information::ServerInformation;
+pub mod combat;
+pub mod connection;
+pub mod death;
+pub mod housing;
+pub mod item_usage;
+pub mod map;
+pub mod market;
+pub mod sql;
+pub mod misc;
+pub mod server_save;
+pub mod rates;
+pub mod monsters;
+pub mod stamina;
+pub mod scripts;
+pub mod startup;
+pub mod server_information;
+
+use combat::CombatOptions;
+use connection::ConnectionOptions;
+use death::DeathOptions;
+use housing::HousingOptions;
+use item_usage::ItemUsageOptions;
+use map::MapOptions;
+use market::MarketOptions;
+use sql::SQLOptions;
+use misc::MiscOptions;
+use server_save::ServerSaveOptions;
+use rates::RateOptions;
+use monsters::MonsterOptions;
+use stamina::StaminaOptions;
+use scripts::ScriptOptions;
+use startup::StartupOptions;
+use server_information::ServerInformationOptions;
 
 use serde::{Serialize, Deserialize};
 use validator::Validate;
@@ -40,35 +41,35 @@ use validator_derive::Validate;
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
 pub struct Settings {
     #[validate]
-    pub combat: Combat,
+    pub combat: CombatOptions,
     #[validate]
-    pub connection: Connection,
+    pub connection: ConnectionOptions,
     #[validate]
-    pub death: Death,
+    pub death: DeathOptions,
     #[validate]
-    pub housing: Housing,
+    pub housing: HousingOptions,
     #[validate]
-    pub item_usage: ItemUsage,
+    pub item_usage: ItemUsageOptions,
     #[validate]
-    pub map: Map,
+    pub map: MapOptions,
     #[validate]
-    pub market: Market,
+    pub market: MarketOptions,
     #[validate]
-    pub sql: SQL,
+    pub sql: SQLOptions,
     #[validate]
-    pub misc: Misc,
+    pub misc: MiscOptions,
     #[validate]
-    pub server_save: ServerSave,
+    pub server_save: ServerSaveOptions,
     #[validate]
-    pub rates: Rates,
+    pub rates: RateOptions,
     #[validate]
-    pub monsters: Monsters,
+    pub monsters: MonsterOptions,
     #[validate]
-    pub stamina: Stamina,
+    pub stamina: StaminaOptions,
     #[validate]
-    pub scripts: Scripts,
+    pub scripts: ScriptOptions,
     #[validate]
-    pub startup: Startup,
+    pub startup: StartupOptions,
     #[validate]
-    pub server_information: ServerInformation,
+    pub server_information: ServerInformationOptions,
 }

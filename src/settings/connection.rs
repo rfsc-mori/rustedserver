@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Connection {
+pub struct ConnectionOptions {
     #[validate(custom = "validate_ip_address")]
     pub ip: TIpAddress,
     pub bind_only_global_address: bool,

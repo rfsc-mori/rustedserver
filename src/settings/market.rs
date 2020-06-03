@@ -4,7 +4,7 @@ use validator::Validate;
 use validator_derive::Validate;
 
 #[derive(Debug, Default, Serialize, Deserialize, Validate)]
-pub struct Market {
+pub struct MarketOptions {
     #[validate(custom = "validate_offer_duration")]
     pub market_offer_duration: TOfferDuration,
     pub premium_to_create_market_offer: bool,
