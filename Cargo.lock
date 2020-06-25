@@ -589,6 +589,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "lru-cache"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "31e24f1ad8321ca0e8a1e0ac13f23cb668e6f5466c2c57319f6a5cf1cc8e3b1c"
+dependencies = [
+ "linked-hash-map 0.5.3",
+]
+
+[[package]]
 name = "maplit"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1375,7 +1384,7 @@ dependencies = [
 [[package]]
 name = "sqlx"
 version = "0.4.0-pre"
-source = "git+https://github.com/launchbadge/sqlx#72c4e040bccfb0689529fa574124e35947c18236"
+source = "git+https://github.com/launchbadge/sqlx#7beceba8323aad9c051d5784e601a0cbc0e7962c"
 dependencies = [
  "sqlx-core",
  "sqlx-macros",
@@ -1384,7 +1393,7 @@ dependencies = [
 [[package]]
 name = "sqlx-core"
 version = "0.4.0-pre"
-source = "git+https://github.com/launchbadge/sqlx#72c4e040bccfb0689529fa574124e35947c18236"
+source = "git+https://github.com/launchbadge/sqlx#7beceba8323aad9c051d5784e601a0cbc0e7962c"
 dependencies = [
  "atoi",
  "base64",
@@ -1405,6 +1414,7 @@ dependencies = [
  "itoa",
  "libc",
  "log",
+ "lru-cache",
  "memchr",
  "num-bigint",
  "once_cell",
@@ -1427,7 +1437,7 @@ dependencies = [
 [[package]]
 name = "sqlx-macros"
 version = "0.4.0-pre"
-source = "git+https://github.com/launchbadge/sqlx#72c4e040bccfb0689529fa574124e35947c18236"
+source = "git+https://github.com/launchbadge/sqlx#7beceba8323aad9c051d5784e601a0cbc0e7962c"
 dependencies = [
  "dotenv",
  "futures",
@@ -1444,7 +1454,7 @@ dependencies = [
 [[package]]
 name = "sqlx-rt"
 version = "0.1.0-pre"
-source = "git+https://github.com/launchbadge/sqlx#72c4e040bccfb0689529fa574124e35947c18236"
+source = "git+https://github.com/launchbadge/sqlx#7beceba8323aad9c051d5784e601a0cbc0e7962c"
 dependencies = [
  "native-tls",
  "tokio",
