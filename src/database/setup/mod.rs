@@ -94,7 +94,7 @@ impl DatabaseSetup {
                 let migration: Function = lua.globals()
                     .get("onUpdateDatabase")
                     .with_context(|| {
-                        format!("`{}` does not contains an `onUpdateDatabase` function.", script_file)
+                        format!("`{}` does not contain an `onUpdateDatabase` function.", script_file)
                     })?;
 
                 let updated: bool = migration.call_async(())
