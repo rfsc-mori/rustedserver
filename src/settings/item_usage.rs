@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use validator::Validate;
 use validator_derive::Validate;
 
-#[derive(Debug, Default, Serialize, Deserialize, Validate)]
+#[derive(Debug, Serialize, Deserialize, Validate)]
 pub struct ItemUsageOptions {
     #[validate(custom = "validate_action_delay")]
     pub time_between_actions: TActionDelay,

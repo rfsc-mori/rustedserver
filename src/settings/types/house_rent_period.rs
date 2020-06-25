@@ -3,9 +3,9 @@ use validator::ValidationError;
 
 pub type THouseRentPeriod = String;
 
-pub fn validate_house_rent_period(house_rent_period: &THouseRentPeriod)
-    -> Result<(), ValidationError> {
-    match house_rent_period.as_str() {
+#[allow(clippy::match_same_arms)] // Readability.
+pub fn validate_house_rent_period(house_rent_period: &str) -> Result<(), ValidationError> {
+    match house_rent_period {
         "yearly" => Ok(()),
         "monthly" => Ok(()),
         "weekly" => Ok(()),

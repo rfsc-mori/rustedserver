@@ -1,21 +1,29 @@
 [package]
 name = "rustedserver"
 version = "0.1.0"
-authors = ["Rafael Fillipe Silva <silva.rafaelfillipe@gmail.com>"]
 edition = "2018"
+description = "A free and open-source MMORPG server emulator written in Rust"
+license = "GPL-2.0"
+authors = [
+    "Rafael Fillipe Silva <silva.rafaelfillipe@gmail.com>",
+]
 
 [dependencies]
 anyhow = "1.0.31"
-mlua = "0.3.2"
-percent-encoding = "2.1.0"
-serde = { version = "1.0.111", features = ["derive"] }
-sqlx = { version = "0.3.5", default-features = false, features = ["runtime-tokio", "macros", "mysql"] }
-thiserror = "1.0.19"
-tokio = { version = "0.2.21", features = ["blocking", "fs", "macros", "rt-core", "rt-threaded", "sync"] }
-toml = "0.5.6"
-tracing = "0.1.14"
+bstr = "0.2.13"
+config = "0.10.1"
+deadpool = { version = "0.5.1", features = ["unmanaged"] }
+futures = "0.3.5"
+glob = "0.3.0"
+itertools = "0.9.0"
+mlua = { version  = "0.4.1", default-features = false, features = ["async", "luajit", "send"] }
+num_cpus = "1.13.0"
+owning_ref = "0.4.1"
+serde = { version = "1.0.113", features = ["derive"] }
+sqlx = { git = "https://github.com/launchbadge/sqlx", default-features = false, features = ["runtime-tokio", "macros", "mysql"] }
+tokio = { version = "0.2.21", features = ["blocking", "fs", "macros", "parking_lot", "rt-core", "rt-threaded", "rt-util", "sync"] }
+tracing = "0.1.15"
 tracing-futures = "0.2.4"
-tracing-subscriber = "0.2.5"
-url = "2.1.1"
-validator = "0.10.0"
-validator_derive = "0.10.0"
+tracing-subscriber = "0.2.6"
+validator = "0.10.1"
+validator_derive = "0.10.1"

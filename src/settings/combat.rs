@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use validator::Validate;
 use validator_derive::Validate;
 
-#[derive(Debug, Default, Serialize, Deserialize, Validate)]
+#[derive(Debug, Serialize, Deserialize, Validate)]
 pub struct CombatOptions {
     #[validate(custom = "validate_world_type")]
     pub world_type: TWorldType,

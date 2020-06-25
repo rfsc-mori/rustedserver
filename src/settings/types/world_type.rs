@@ -3,8 +3,9 @@ use validator::ValidationError;
 
 pub type TWorldType = String;
 
-pub fn validate_world_type(world_type: &TWorldType) -> Result<(), ValidationError> {
-    match world_type.as_str() {
+#[allow(clippy::match_same_arms)] // Readability.
+pub fn validate_world_type(world_type: &str) -> Result<(), ValidationError> {
+    match world_type {
         "pvp" => Ok(()),
         "no-pvp" => Ok(()),
         "pvp-enforced" => Ok(()),

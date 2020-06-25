@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use validator::Validate;
 use validator_derive::Validate;
 
-#[derive(Debug, Default, Serialize, Deserialize, Validate)]
+#[derive(Debug, Serialize, Deserialize, Validate)]
 pub struct ConnectionOptions {
     #[validate(custom = "validate_ip_address")]
     pub ip: TIpAddress,

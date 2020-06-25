@@ -3,9 +3,9 @@ use validator::ValidationError;
 
 pub type TProcessPriority = String;
 
-pub fn validate_process_priority(process_priority: &TProcessPriority)
-    -> Result<(), ValidationError> {
-    match process_priority.as_str() {
+#[allow(clippy::match_same_arms)] // Readability.
+pub fn validate_process_priority(process_priority: &str) -> Result<(), ValidationError> {
+    match process_priority {
         "normal" => Ok(()),
         "above-normal" => Ok(()),
         "high" => Ok(()),

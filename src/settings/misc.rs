@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use validator::Validate;
 use validator_derive::Validate;
 
-#[derive(Debug, Default, Serialize, Deserialize, Validate)]
+#[derive(Debug, Serialize, Deserialize, Validate)]
 pub struct MiscOptions {
     pub allow_change_outfit: bool,
     pub free_premium: bool,
@@ -20,4 +20,5 @@ pub struct MiscOptions {
     pub yell_minimum_level: TLevel,
     pub yell_always_allow_premium: bool,
     pub force_monster_type_on_load: bool,
+    pub clean_protection_zones: bool,
 }

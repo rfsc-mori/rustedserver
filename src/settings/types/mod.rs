@@ -1,3 +1,6 @@
+#![allow(clippy::absurd_extreme_comparisons)] // Types validation.
+#![allow(clippy::trivially_copy_pass_by_ref)] // Validate crate.
+
 mod action_delay;
 mod database_name;
 mod death_penalty_value;
@@ -23,6 +26,7 @@ mod second_ticks;
 mod shutdown_notify_minutes;
 mod sql_connections;
 mod timeout_seconds;
+mod script_vm_count;
 mod world_type;
 
 pub use action_delay::*;
@@ -46,17 +50,19 @@ pub use packet_count::*;
 pub use player_count::*;
 pub use process_priority::*;
 pub use rate::*;
+pub use script_vm_count::*;
 pub use second_ticks::*;
 pub use shutdown_notify_minutes::*;
 pub use sql_connections::*;
 pub use timeout_seconds::*;
 pub use world_type::*;
 
-use std::borrow::Cow;
-use std::collections::HashMap;
 use validator::ValidationError;
 
 fn validation_error(code: &'static str, message: &'static str) -> ValidationError {
+    use std::borrow::Cow;
+    use std::collections::HashMap;
+
     ValidationError {
         code: Cow::from(code),
         message: Some(Cow::from(message)),

@@ -3,9 +3,8 @@ use validator::ValidationError;
 
 pub type TOfferExpiredInterval = u32;
 
-pub fn validate_offer_expired_interval(offer_expired_interval: &TOfferExpiredInterval)
-    -> Result<(), ValidationError> {
-    match *offer_expired_interval {
+pub fn validate_offer_expired_interval(i: &TOfferExpiredInterval) -> Result<(), ValidationError> {
+    match *i {
         offer_expired_interval if offer_expired_interval > 0 => Ok(()),
         0 => Ok(()),
         _ => Err(validation_error("invalid_range",
