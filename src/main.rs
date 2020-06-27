@@ -12,9 +12,13 @@
 #![warn(
 clippy::all,
 clippy::cargo,
+clippy::complexity,
+clippy::correctness,
 clippy::nursery,
 clippy::pedantic,
+clippy::perf,
 clippy::restriction,
+clippy::style,
 )]
 
 // Other allows are in specific modules/functions.
@@ -27,6 +31,7 @@ clippy::module_name_repetitions,
 clippy::multiple_crate_versions,
 clippy::single_match_else,
 clippy::wildcard_enum_match_arm,
+clippy::integer_arithmetic
 )]
 
 #[macro_use]

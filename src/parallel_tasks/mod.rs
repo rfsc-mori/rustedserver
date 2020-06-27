@@ -39,7 +39,6 @@ pub fn start(err_tx: ErrorSender) -> (TaskSender, JoinHandle<()>)
     (tx, handle)
 }
 
-#[allow(clippy::integer_arithmetic)] // tokio::select!
 async fn run(mut rx: TaskReceiver, err_tx: ErrorSender) {
     let mut tasks = FuturesUnordered::<TaskHandle>::new();
 

@@ -23,7 +23,7 @@ pub struct QueryResult {
 
 impl QueryResult {
     #[allow(unsafe_code)] // OwningHandle's new_with_fn.
-    #[allow(clippy::option_expect_used)] // Panic on new_with_fn with invalid ptr.
+    #[allow(clippy::option_expect_used)] // Panic on new_with_fn with null ptr.
     pub async fn fetch(query_str: String, params: QueryParamIterator, pool: &MySqlPool) -> Self {
         // This unsafe may be removed in future if/when SQLx query() accepts owned Strings.
         let cursor = {

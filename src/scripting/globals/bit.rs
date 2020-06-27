@@ -1,5 +1,3 @@
-#![allow(clippy::integer_arithmetic)] // Bit operations for lua.
-
 use anyhow::Result;
 use mlua::{Lua, UserData, UserDataMethods, Integer, Variadic};
 
