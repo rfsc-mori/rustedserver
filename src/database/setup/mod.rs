@@ -2,10 +2,11 @@ use crate::error::log_error;
 use crate::database::handle::DatabaseHandle;
 use crate::scripting::context::ScriptContextPool;
 use anyhow::{format_err, Context, Result};
+use mlua::Function;
+use sqlx::Row;
 use std::path::PathBuf;
 use tokio::fs;
 use tracing::{debug, info, trace};
-use mlua::Function;
 
 pub struct DatabaseSetup {
     handle: DatabaseHandle,
@@ -32,6 +33,60 @@ impl DatabaseSetup {
         self.run_db_migration_scripts()
             .await
             .context("Failed to run database migration scripts.")?;
+
+        Ok(())
+    }
+
+    pub async fn optimize_tables(&self) -> Result<usize> {
+        let tables = sqlx::query!(r#"
+                SELECT
+                    `table_name`
+                FROM
+                    `information_schema`.`tables`
+                WHERE
+                    `table_schema` = DATABASE() AND
+                    `data_free`    > 0;
+            "#)
+            .fetch_all(self.handle.pool())
+            .await?
+            .into_iter()
+            .map(|row| row.table_name);
+
+        let mut count = 0_usize;
+
+        for table in tables {
+            info!("Optimizing table `{}`...", table);
+
+            let result = self.optimize_table(table.as_str())
+                .await
+                .with_context(|| format!("Failed to optimize table: `{}`.", table));
+
+            match result {
+                Ok(_) => {
+                    count = count.checked_add(1)
+                        .context("Overflow when counting optimized tables.")?;
+                },
+                Err(e) => log_error(e)
+            }
+        }
+
+        Ok(count)
+    }
+
+    async fn optimize_table(&self, table: &str) -> Result<()> {
+        let query_str = format!("OPTIMIZE TABLE {};", table);
+
+        let rows = sqlx::query(query_str.as_str())
+            .fetch_all(self.handle.pool())
+            .await?;
+
+        for row in rows {
+            let table: String = row.try_get("Table")?;
+            let msg_type: String = row.try_get("Msg_type")?;
+            let msg_text: String = row.try_get("Msg_text")?;
+
+            debug!("`{0}` - {1}: {2}", table, msg_type, msg_text);
+        }
 
         Ok(())
     }

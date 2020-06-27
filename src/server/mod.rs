@@ -38,7 +38,7 @@ pub async fn run(settings: Settings) -> Result<()> {
 
         task::spawn(async move {
             log_errors! {
-                run_server(database, script_pool.clone()).await;
+                run_server(settings, database, script_pool.clone()).await;
             }
 
             for context in script_pool.lock_all().await {
@@ -76,16 +76,20 @@ async fn start_vm_pool(vm_count: usize,
     Ok(script_pool)
 }
 
-async fn run_server(database: DatabaseHandle, script_pool: ScriptContextPool) -> Result<()> {
+async fn run_server(settings: Settings,
+                    database: DatabaseHandle,
+                    script_pool: ScriptContextPool) -> Result<()> {
     info!("Running startup tasks...");
-    run_startup_tasks(database, script_pool)
+    run_startup_tasks(settings, database, script_pool)
         .await
         .context("Failed to run startup tasks.")?;
 
     Ok(())
 }
 
-async fn run_startup_tasks(database: DatabaseHandle, script_pool: ScriptContextPool) -> Result<()> {
+async fn run_startup_tasks(settings: Settings,
+                           database: DatabaseHandle,
+                           script_pool: ScriptContextPool) -> Result<()> {
     let setup = DatabaseSetup::new(database, script_pool);
 
     debug!("Validating database...");
@@ -97,6 +101,28 @@ async fn run_startup_tasks(database: DatabaseHandle, script_pool: ScriptContextP
     setup.update_database()
         .await
         .context("Failed to update database.")?;
+
+    if settings.startup.startup_database_optimization {
+        debug!("Optimizing tables...");
+
+        let result = setup.optimize_tables()
+            .await
+            .context("Failed to optimize tables.");
+
+        let optimized_count = match result {
+            Ok(count) => count,
+            Err(e) => {
+                log_error(e);
+                0
+            }
+        };
+
+        match optimized_count {
+            count if count > 0 => {},
+            0 => info!("No tables were optimized."),
+            _ => unreachable!("Reaching this means optimized_count(usize) was negative.")
+        }
+    }
 
     Ok(())
 }
