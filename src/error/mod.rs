@@ -8,7 +8,8 @@ pub type ErrorReceiver = mpsc::UnboundedReceiver<Error>;
 pub type ErrorSender = mpsc::UnboundedSender<Error>;
 
 macro_rules! log_errors {
-    ($($result:expr),*) => {
+    ($($result:expr),*) => {{
+        use crate::error::log_error;
         use anyhow::format_err;
 
         $(if let Err(e) = $result {
@@ -16,7 +17,7 @@ macro_rules! log_errors {
         })
 
         *
-    };
+    }};
 
     {$($result:expr);* $(;)?} => {
         log_errors!($($result),*);

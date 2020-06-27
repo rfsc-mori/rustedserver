@@ -43,7 +43,6 @@ mod scripting;
 mod server;
 mod settings;
 
-use crate::error::log_error;
 use crate::settings::Settings;
 use anyhow::{Context, Result};
 use std::path::PathBuf;

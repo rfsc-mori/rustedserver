@@ -1,3 +1,4 @@
+use crate::error::log_error;
 use crate::database::handle::DatabaseHandle;
 use crate::scripting::context::ScriptContextPool;
 use anyhow::{format_err, Context, Result};

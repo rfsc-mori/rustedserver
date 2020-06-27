@@ -1,6 +1,6 @@
 use crate::database::compat::DatabaseCompat;
 use crate::database::compat::query_params::QueryParams;
-use crate::error::{from_lua_err, log_error};
+use crate::error::from_lua_err;
 use crate::parallel_tasks::TaskSender;
 use crate::scripting::context::ScriptContextPool;
 use crate::scripting::traits::ScriptRegistryEntry;
