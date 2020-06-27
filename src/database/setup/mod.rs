@@ -108,7 +108,8 @@ impl DatabaseSetup {
             }).await?;
 
             if updated {
-                version += 1;
+                version = version.checked_add(1)
+                    .context("Database version number overflow.")?;
 
                 debug!("Updating database version number...");
 
