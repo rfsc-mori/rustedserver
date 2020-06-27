@@ -12,7 +12,7 @@ pub trait ScriptRegistryEntry {
         Ok(())
     }
 
-    fn get_from_registry<'lua>(lua: &'lua Lua) -> mlua::Result<Self>
+    fn from_registry<'lua>(lua: &'lua Lua) -> mlua::Result<Self>
     where
         Self: FromLua<'lua>
     {

@@ -6,21 +6,21 @@ impl UserData for QueryResult {
         methods.add_async_method(
             "getNumber",
             |_, result, column: mlua::String| async move {
-                Ok(result.get_number(column.to_str()?).await)
+                Ok(result.number(column.to_str()?).await)
             }
         );
 
         methods.add_async_method(
             "getString",
             |_, result, column: mlua::String| async move {
-                Ok(result.get_string(column.to_str()?).await)
+                Ok(result.string(column.to_str()?).await)
             }
         );
 
         methods.add_async_method(
             "getStream",
             |lua, result, column: mlua::String| async move {
-                let value = result.get_stream(column.to_str()?).await;
+                let value = result.stream(column.to_str()?).await;
                 Ok((lua.create_string(value.as_slice())?, value.len()))
             }
         );

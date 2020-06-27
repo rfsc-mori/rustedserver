@@ -52,7 +52,7 @@ impl QueryResult {
         result
     }
 
-    async fn get<'r, T>(&self, row: Option<&'r MySqlRow>, column: &str) -> T
+    fn get<'r, T>(row: Option<&'r MySqlRow>, column: &str) -> T
     where
         T: Default + Decode<'r, MySql> + Type<MySql>,
     {
@@ -68,19 +68,19 @@ impl QueryResult {
         }
     }
 
-    async fn get_number(&self, column: &str) -> mlua::Integer {
+    async fn number(&self, column: &str) -> mlua::Integer {
         let row = self.row.read().await;
-        self.get(row.as_ref(), column).await
+        Self::get(row.as_ref(), column)
     }
 
-    async fn get_string(&self, column: &str) -> String {
+    async fn string(&self, column: &str) -> String {
         let row = self.row.read().await;
-        self.get(row.as_ref(), column).await
+        Self::get(row.as_ref(), column)
     }
 
-    async fn get_stream(&self, column: &str) -> Vec<u8> {
+    async fn stream(&self, column: &str) -> Vec<u8> {
         let row = self.row.read().await;
-        self.get(row.as_ref(), column).await
+        Self::get(row.as_ref(), column)
     }
 
     pub async fn has_next(&self) -> bool {

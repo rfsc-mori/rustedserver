@@ -27,10 +27,10 @@ impl UserData for DatabaseCompat {
         methods.add_async_method(
             "asyncQuery",
             |lua, db, (callback, query, params): (Option<String>, String, Variadic<QueryParams>)| async move {
-                let task_sender = TaskSender::get_from_registry(lua)?;
+                let task_sender = TaskSender::from_registry(lua)?;
 
                 let task = {
-                    let script_pool = ScriptContextPool::get_from_registry(lua)?;
+                    let script_pool = ScriptContextPool::from_registry(lua)?;
 
                     task::spawn(async move {
                         let query_ok = db.query(query.as_str(), params.into_iter()).await;
@@ -84,10 +84,10 @@ impl UserData for DatabaseCompat {
         methods.add_async_method(
             "asyncStoreQuery",
             |lua, db, (callback, query, params): (Option<String>, String, Variadic<QueryParams>)| async move {
-                let task_sender = TaskSender::get_from_registry(lua)?;
+                let task_sender = TaskSender::from_registry(lua)?;
 
                 let task = {
-                    let script_pool = ScriptContextPool::get_from_registry(lua)?;
+                    let script_pool = ScriptContextPool::from_registry(lua)?;
 
                     task::spawn(async move {
                         let result = db.store_query(query, params.into_iter()).await;

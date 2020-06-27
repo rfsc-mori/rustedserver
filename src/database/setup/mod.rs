@@ -60,7 +60,7 @@ impl DatabaseSetup {
     async fn run_db_migration_scripts(&self) -> Result<()> {
         debug!("Querying database version...");
 
-        let mut version = self.get_db_version()
+        let mut version = self.db_version()
             .await
             .context("Failed to query database version.")?;
 
@@ -126,7 +126,7 @@ impl DatabaseSetup {
         Ok(())
     }
 
-    async fn get_db_version(&self) -> Result<u64> {
+    async fn db_version(&self) -> Result<u64> {
         let db_config = sqlx::query!(r#"
                 SELECT
                     CAST(`value` AS UNSIGNED) AS version
