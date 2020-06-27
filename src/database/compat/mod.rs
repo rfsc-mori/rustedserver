@@ -80,7 +80,7 @@ impl DatabaseCompat {
                 WHERE
                     `table_schema` = DATABASE() AND
                     `table_name`   = ?
-                LIMIT 1
+                LIMIT 1;
             "#, table)
             .fetch_one(self.handle.pool())
             .await
